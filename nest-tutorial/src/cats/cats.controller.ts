@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Header, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
+
 import { CreateCatDto } from './dto/create-cat.dto';
 
 @Controller('cats')
