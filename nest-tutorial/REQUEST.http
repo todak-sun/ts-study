@@ -1,0 +1,14 @@
+@HOST=http://localhost:3000
+
+
+############ CAT ##############
+
+### create cat
+POST {{HOST}}/cats
+
+### findAll cat
+GET {{HOST}}/cats
+
+### findOne cat
+GET {{HOST}}/cats/2
+
