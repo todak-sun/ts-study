@@ -1,0 +1,21 @@
+{
+  "name": "ts-tutorial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec 'ts-node' --cwd $INIT_CWD"
+  },
+  "devDependencies": {
+    "typescript": "4.5.2",
+    "ts-node": "10.4.0",
+    "@types/geojson": "7946.0.8",
+    "@types/lodash": "4.14.177",
+    "nodemon": "2.0.15"
+  },
+  "dependencies": {
+    "lodash": "4.17.21"
+  },
+  "author": "",
+  "license": "ISC"
+}
