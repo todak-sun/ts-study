@@ -5,10 +5,20 @@
 
 ### create cat
 POST {{HOST}}/cats
+Content-Type: application/json
+
+{
+ "name" : "고양이1",
+ "age" : 13,
+ "owner" : "TODAK2" 
+}
 
 ### findAll cat
 GET {{HOST}}/cats
 
 ### findOne cat
 GET {{HOST}}/cats/2
+
+### error cat
+GET {{HOST}}/cats/error
 

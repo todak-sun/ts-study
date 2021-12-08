@@ -1,13 +1,16 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'cat' })
 export class CatsEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  age: number;
+
   @Column({ length: 50 })
   name: string;
 
-  @Column({ length: 10 })
-  sex: string;
+  @Column()
+  owner: string;
 }

@@ -1,19 +1,26 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { Observable, of } from 'rxjs';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
 
+import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 
 @Controller('cats')
 export class CatsController {
+  constructor(private catsService: CatsService) {}
+
   @Post()
   async create(@Body() createCatDto: CreateCatDto) {
-    console.log(createCatDto);
-    return 'this action adds a new cat';
+    this.catsService.save(createCatDto);
+    return createCatDto;
+  }
+
+  @Get('/error')
+  async error() {
+    throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
   }
 
   @Get()
-  findAll(): Observable<any[]> {
-    return of([]);
+  async findAll() {
+    return this.catsService.findAll();
   }
 
   @Get(':id')
