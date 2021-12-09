@@ -15,4 +15,8 @@ describe('CatsService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  it('findAll return Array', () => {
+    expect(service.findAll()).toBeInstanceOf(Array);
+  });
 });
