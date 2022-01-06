@@ -1,0 +1,16 @@
+{
+  "name": "nest-lib-tutorial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2"
+  },
+  "author": "todak",
+  "license": "ISC"
+}
