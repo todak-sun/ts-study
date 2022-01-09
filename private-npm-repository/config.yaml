@@ -94,3 +94,6 @@ logs: { type: stdout, format: pretty, level: http }
 # This affect the web and api (not developed yet)
 #i18n:
 #web: en-US
+
+listen:
+  - 0.0.0.0:4873
