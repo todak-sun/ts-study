@@ -1,0 +1,17 @@
+{
+  "name": "miniproject",
+  "version": "1.0.1",
+  "description": "미니 라이브러리 배포해보기",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "publishConfig": {
+    "registry": "http://localhost:14873"
+  },
+  "author": "todak",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
