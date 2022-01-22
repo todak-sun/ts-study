@@ -14,6 +14,7 @@
             'Content-Type': 'text/event-stream',
             'X-Accel-Buffering': 'no',
             Connection: 'keep-alive',
+            'Cache-Control': 'no-cache',
           },
         });
 
@@ -24,11 +25,9 @@
         while (isOpen) {
           const { done, value } = await reader.read();
           isOpen = !done;
-          JSON.parse(decoder.decode(value));
+          console.log(decoder.decode(value));
         }
       })();
-
-      
     </script>
   </body>
 </html>

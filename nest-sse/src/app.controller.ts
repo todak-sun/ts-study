@@ -1,7 +1,7 @@
 import { Controller, MessageEvent, Req, Sse } from '@nestjs/common';
 import { Request } from 'express';
 import { interval, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Controller()
 export class AppController {
@@ -10,6 +10,7 @@ export class AppController {
     console.log(request.headers);
     return interval(1000).pipe(
       map((_) => ({ data: { hello: 'world' } } as MessageEvent)),
+      tap((data) => console.log(data)),
     );
   }
 }
