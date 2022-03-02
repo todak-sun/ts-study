@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  mssql-test:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - SA_PASSWORD=Todak@todak123
+      - ACCEPT_EULA=Y
+    ports:
+      - 51433:1433
+  postgresql-test:
+    image: postgres:12.10
+    environment:
+      - POSTGRES_PASSWORD=Todak@todak123
+    ports:
+      - 15432:5432
