@@ -3,7 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CommentEntity } from './comments/comment.entity';
 import { envConfiguration } from './config/env.config';
-import { PostEntity } from './posts/post.entity';
+import { PostsEntity } from './posts/posts.entity';
+import { PostsModule } from './posts/posts.module';
 
 export const MSSQL_CONNECTION = `MSSQL_CONNECTION`;
 export const POSTGRES_CONNECTION = `POSTGRES_CONNECTION`;
@@ -23,8 +24,8 @@ export const POSTGRES_CONNECTION = `POSTGRES_CONNECTION`;
           password: configService.get<string>(`MSSQL_PASSWORD`),
           database: configService.get<string>(`MSSQL_DATABASE`),
           synchronize: true,
-          entities: [PostEntity],
-          logging: [`query`],
+          entities: [PostsEntity],
+          // logging: [`query`],
         };
       },
       inject: [ConfigService],
@@ -42,11 +43,12 @@ export const POSTGRES_CONNECTION = `POSTGRES_CONNECTION`;
           database: configService.get<string>(`POSTGRES_DATABASE`),
           synchronize: true,
           entities: [CommentEntity],
-          logging: [`query`],
+          // logging: [`query`],
         };
       },
       inject: [ConfigService],
     }),
+    PostsModule,
   ],
 })
 export class AppModule {}
