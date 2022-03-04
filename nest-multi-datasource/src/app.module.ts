@@ -1,19 +1,17 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CommentEntity } from './comments/comment.entity';
+import { CommentsEntity } from './comments/comments.entity';
+import { CommentsModule } from './comments/comments.module';
 import { envConfiguration } from './config/env.config';
 import { PostsEntity } from './posts/posts.entity';
 import { PostsModule } from './posts/posts.module';
 
-export const MSSQL_CONNECTION = `MSSQL_CONNECTION`;
-export const POSTGRES_CONNECTION = `POSTGRES_CONNECTION`;
-
+export const POSTGRES_CONNECTION = 'POSTGRES_CONNECTION';
 @Module({
   imports: [
     envConfiguration,
     TypeOrmModule.forRootAsync({
-      name: MSSQL_CONNECTION,
       useFactory: (configService: ConfigService) => {
         return {
           applicationName: `TEST_APP`,
@@ -42,13 +40,14 @@ export const POSTGRES_CONNECTION = `POSTGRES_CONNECTION`;
           password: configService.get<string>(`POSTGRES_PASSWORD`),
           database: configService.get<string>(`POSTGRES_DATABASE`),
           synchronize: true,
-          entities: [CommentEntity],
+          entities: [CommentsEntity],
           // logging: [`query`],
         };
       },
       inject: [ConfigService],
     }),
     PostsModule,
+    CommentsModule,
   ],
 })
 export class AppModule {}
