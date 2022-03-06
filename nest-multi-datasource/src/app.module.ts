@@ -23,7 +23,7 @@ export const POSTGRES_CONNECTION = 'POSTGRES_CONNECTION';
           database: configService.get<string>(`MSSQL_DATABASE`),
           synchronize: true,
           entities: [PostsEntity],
-          // logging: [`query`],
+          logging: [`query`],
         };
       },
       inject: [ConfigService],
@@ -41,7 +41,7 @@ export const POSTGRES_CONNECTION = 'POSTGRES_CONNECTION';
           database: configService.get<string>(`POSTGRES_DATABASE`),
           synchronize: true,
           entities: [CommentsEntity],
-          // logging: [`query`],
+          logging: [`query`],
         };
       },
       inject: [ConfigService],
