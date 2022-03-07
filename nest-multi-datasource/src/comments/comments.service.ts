@@ -1,8 +1,9 @@
 import { ConsoleLogger, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CommentsEntity } from './comments.entity';
-import { POSTGRES_CONNECTION } from '../app.module';
 import { Repository } from 'typeorm';
+import { POSTGRES_CONNECTION } from '../constants';
+import { CommentsEntity } from './comments.entity';
+
 
 @Injectable()
 export class CommentsService {

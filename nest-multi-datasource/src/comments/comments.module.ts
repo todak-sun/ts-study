@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { POSTGRES_CONNECTION } from '../app.module';
+import { POSTGRES_CONNECTION } from '../constants';
 import { CommentsEntity } from './comments.entity';
 import { CommentsService } from './comments.service';
 

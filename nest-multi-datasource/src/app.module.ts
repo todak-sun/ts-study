@@ -4,10 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CommentsEntity } from './comments/comments.entity';
 import { CommentsModule } from './comments/comments.module';
 import { envConfiguration } from './config/env.config';
+import { POSTGRES_CONNECTION } from './constants';
 import { PostsEntity } from './posts/posts.entity';
 import { PostsModule } from './posts/posts.module';
 
-export const POSTGRES_CONNECTION = 'POSTGRES_CONNECTION';
 @Module({
   imports: [
     envConfiguration,
