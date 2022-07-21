@@ -20,8 +20,6 @@ describe(`LinkedNode Test`, () => {
 });
 
 describe(`경로 생성 알고리즘 테스트 시작...`, () => {
-
-
   class Routes<T> {
     private readonly array: T[];
     constructor(routes: Iterable<T> = []) {
@@ -38,6 +36,8 @@ describe(`경로 생성 알고리즘 테스트 시작...`, () => {
         this.array.splice(prevFounded + 1, 0, next);
       } else if (nextFounded !== -1) {
         this.array.splice(nextFounded, 0, prev);
+      } else {
+        this.array.splice(1, 0, prev, next);
       }
     }
 
@@ -70,7 +70,10 @@ describe(`경로 생성 알고리즘 테스트 시작...`, () => {
     const case4 = new Routes(['대전', '대구']);
     case4.addRoute(['서울', '대전']);
     expect(JSON.stringify(case4)).toBe(JSON.stringify(['서울', '대전', '대구']));
-
     console.log(JSON.stringify(case4.getRoutes()));
+
+    const case5 = new Routes(['서울', '부산']);
+    case5.addRoute(['대전', '대구']);
+    expect(JSON.stringify(case5)).toBe(JSON.stringify(['서울', '대전', '대구', '부산']));
   });
 });

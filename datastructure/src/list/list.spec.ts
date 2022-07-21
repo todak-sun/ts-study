@@ -90,26 +90,61 @@ describe(`LinkedList Test`, () => {
 });
 
 describe(`Route`, () => {
-  interface Identity<T> {
+  interface Identifiable<T> {
     readonly id: T;
   }
 
-  class Route<I, T extends Identity<I>> {
+  class Route<I, T extends Identifiable<I>> {
     private readonly nodes: [T, T];
     constructor(left: T, right: T) {
       this.nodes = [left, right];
     }
+    left = (): T => this.nodes[0];
+    right = (): T => this.nodes[1];
+
+    toJSON() {
+      return [...this.nodes];
+    }
   }
 
-  class Routes<I, T extends Identity<I>> {
-    private readonly locations: T[];
+  class Routes<I, T extends Identifiable<I>> {
+    private readonly nodes: T[];
     constructor(locations: Iterable<T> = []) {
-      this.locations = [...locations];
+      this.nodes = [...locations];
     }
 
-    
+    addRoute(route: Route<I, T>) {
+      const leftFounded = this.nodes.findIndex((node) => node.id === route.left().id);
+      const rightFounded = this.nodes.findIndex((node) => node.id === route.right().id);
+      if (leftFounded !== -1 && rightFounded !== -1) {
+        console.error(`두 경로가 모두 존재한다.`);
+      } else if (leftFounded !== -1) {
+        this.nodes.splice(leftFounded + 1, 0, route.right());
+      } else if (rightFounded !== -1) {
+        this.nodes.splice(rightFounded, 0, route.left());
+      } else {
+        this.nodes.splice(1, 0, route.left(), route.right());
+      }
+    }
 
+    toJSON() {
+      return [...this.nodes];
+    }
+
+    *items() {
+      for (let i = 0; i < this.nodes.length - 1; i++) {
+        yield new Route(this.nodes[i], this.nodes[i + 1]);
+      }
+    }
   }
 
+  it(`Routes Test`, () => {
+    const createLocation = (id: number, name: string) => ({ id, name });
+    const routes = new Routes([createLocation(1, '서울'), createLocation(3, '대구'), createLocation(4, '부산')]);
+    routes.addRoute(new Route(createLocation(1, '서울'), createLocation(2, '대전')));
 
+    for (const route of routes.items()) {
+      console.log(JSON.stringify(route));
+    }
+  });
 });
