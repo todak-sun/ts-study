@@ -1,5 +1,10 @@
-import { LinkedList } from './list';
+import { LinkedList, isLinkedList } from './list';
 describe(`LinkedList Test`, () => {
+  describe(`Type Guard`, () => {
+    it(`기본`, () => {
+      expect(isLinkedList(new LinkedList())).toBe(true);
+    });
+  });
   describe(`LinkedList constructor`, () => {
     it(`기본 생성자를 통해 인스턴스를 생성할 수 있다.`, () => {
       const list = new LinkedList();
@@ -42,17 +47,24 @@ describe(`LinkedList Test`, () => {
     it(`items()를 통해 iterable하게 데이터를 순회할 수 있다.`, () => {
       const list = new LinkedList();
       list.add(1).add(2).add(3).add(4);
-
-      const result = [];
-      for (const item of list.items()) {
-        result.push(item);
-      }
-
+      const result = [...list.items()];
       expect(JSON.stringify(result)).toBe(JSON.stringify([1, 2, 3, 4]));
+    });
+
+    it(`reverseItems()를 통해 iterable하게 데이터를 순회할 수 있다.`, () => {
+      const list = new LinkedList();
+      list.add(1).add(2).add(3).add(4);
+      const result = [...list.reverseItems()];
+      console.log(JSON.stringify(result));
     });
   });
 
   describe(`LinkedList.get(i)`, () => {
+    it(`뭐여`, () => {
+      const list = new LinkedList<number>();
+      list.add(1);
+    });
+
     it(`존재하지 않는 인덱스에 접근하려고 하면 에러가 발생한다.`, () => {
       const list = new LinkedList([1, 2, 3]);
       expect(() => {

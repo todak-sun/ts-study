@@ -1,4 +1,12 @@
 import { LinkedNode } from '../shared/node';
+import { Predicator } from '../shared/types';
+
+export const isLinkedList = <T>(value: any): value is LinkedList<T> => {
+  if(!value) return false;
+  return value instanceof LinkedList<T>;
+};
+
+
 export class LinkedList<T> {
   private head?: LinkedNode<T> | null = null;
   private tail?: LinkedNode<T> | null = null;
@@ -10,28 +18,78 @@ export class LinkedList<T> {
     }
   }
 
-  public add = (item: T): LinkedList<T> => {
+   add = (item: T): LinkedList<T> => {
     if (this.isEmpty()) {
       this.head = this.createNode(item);
       this.tail = this.head;
     } else {
       this.addLastOfList(item);
     }
+  
     this._size++;
     return this;
   };
 
-  public get = (index: number): T => this.getNode(index).value;
-  public at = (index: number): T => this.atNode(index).value;
-  public *items(): Generator<T, void, unknown> {
+   addAll = (items: Iterable<T>): LinkedList<T> => {
+    for (const item of items) {
+      this.add(item);
+    }
+    return this;
+  };
+
+   get = (index: number): T => this.getNode(index).value;
+   at = (index: number): T => this.atNode(index).value;
+
+
+   *items(): Generator<T, void, unknown> {
     let node = this.head;
     while (node) {
       yield node.value;
       node = node.next;
     }
   }
-  public isEmpty = (): boolean => !this.head;
-  public size = (): number => this._size;
+
+   *reverseItems(): Generator<T, void, unknown> {
+    let node = this.tail;
+    while(node) {
+      yield node.value;
+      node = node.prev;
+    }
+  }
+
+   *itemsWithIndex(): Generator<[number, T], void, unknown> {
+    let node = this.head;
+    let _index = 0;
+    while(node) {
+      yield [_index, node.value]
+      node = node.next;
+      _index++;
+    }
+  }
+
+   find = (predicator: Predicator<T>): T | null => {
+    for(const [i, item] of this.itemsWithIndex()) {
+      if(predicator(item, i)){
+        return item;
+      }
+    }
+    return null;
+  }
+
+   filter = (predicator: Predicator<T>): LinkedList<T> => {
+    const result = new LinkedList<T>();
+    for(const [i, item] of this.itemsWithIndex()) {
+      if(predicator(item, i)) {
+        result.add(item)
+      }
+    }
+    return result;
+  }
+
+
+   toArray = (): T[] => [...this.items()];
+   isEmpty = (): boolean => !this.head;
+   size = (): number => this._size;
 
   private createNode = (
     item: T,
@@ -71,3 +129,5 @@ export class LinkedList<T> {
 
   private isIndexOutOfRange = (index: number): boolean => index < 0 || index > this._size - 1;
 }
+
+
