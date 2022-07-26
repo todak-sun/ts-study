@@ -37,12 +37,23 @@ export class Tree<T> {
     this._size++;
   };
 
-  private addInternal(parent: TreeNode<T> | null | undefined, child: TreeNode<T>): TreeNode<T> {
+  inOrderTraversal(): void {
+    this.inOrderTraversalInternal(this.root);
+  }
+
+  private inOrderTraversalInternal(node: TreeNode<T> | null | undefined): void {
+    if (node) {
+      this.inOrderTraversalInternal(node.left);
+      console.log(node.value);
+      this.inOrderTraversalInternal(node.right);
+    }
+  }
+
+  private addInternal = (parent: TreeNode<T> | null | undefined, child: TreeNode<T>): TreeNode<T> => {
     if (parent === null || parent === undefined) {
       return child;
     }
     const compare = this.comparator(parent.value, child.value);
-    console.log(compare);
     if (compare > 0) {
       parent.left = this.addInternal(parent.left, child);
     } else if (compare < 0) {
@@ -51,7 +62,7 @@ export class Tree<T> {
       throw new Error(`같은 값을 넣을 수 없다.`);
     }
     return parent;
-  }
+  };
 
   toJSON() {
     return this.root ? { Tree: this.root } : { Tree: 'Empty' };
