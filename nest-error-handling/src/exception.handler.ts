@@ -8,6 +8,11 @@ export class ExceptionHandler {
     this.logger.setContext(ExceptionHandler.name);
   }
 
+  @OnEvent('**')
+  handleAny(err: any): void {
+    this.logger.log(err);
+  }
+
   @OnEvent(CustomError.name)
   handleNormalError(err: CustomError): void {
     this.logger.log(JSON.stringify(err.getPayload()));
